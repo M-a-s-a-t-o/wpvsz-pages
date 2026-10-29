@@ -1,0 +1,205 @@
+{
+  "global_style": {
+    "append": "pixel art, transparent background, side view, 2D game sprite, clean silhouette, consistent lighting from top-left, black outline, no text, no watermark, no UI",
+    "negative": "blurry, anti-aliased smooth shading, realistic photo, 3d render, text, logo, watermark, background scene"
+  },
+  "units": [
+    {
+      "name": "SHOOTER",
+      "side": "plant",
+      "actions": [
+        {
+          "action": "idle",
+          "frames": 6,
+          "prompt": "cute green pea shooter, pixel art, transparent background, idle breathing cycle, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "cute green pea shooter, pixel art, transparent background, attack cycle with muzzle flash and pea launch timing, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "REPEATER",
+      "side": "plant",
+      "actions": [
+        {
+          "action": "idle",
+          "frames": 6,
+          "prompt": "cute repeater pea plant with two barrels, pixel art, transparent background, idle breathing cycle, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "cute repeater pea plant with two barrels, pixel art, transparent background, attack cycle with alternating muzzle flash and pea shot timing, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "WALL",
+      "side": "plant",
+      "actions": [
+        {
+          "action": "idle",
+          "frames": 6,
+          "prompt": "cute walnut wall defender, pixel art, transparent background, subtle idle wobble and blinking, sturdy expression, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "ICE",
+      "side": "plant",
+      "actions": [
+        {
+          "action": "idle",
+          "frames": 6,
+          "prompt": "cute ice pea shooter, pixel art, transparent background, frosty glow effect, idle breathing cycle, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "cute ice pea shooter, pixel art, transparent background, attack cycle with icy muzzle flash and blue pea projectile, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "THISTLE",
+      "side": "plant",
+      "actions": [
+        {
+          "action": "idle",
+          "frames": 6,
+          "prompt": "cute purple thistle plant, pixel art, transparent background, subtle sway and blinking, thorn details, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "cute purple thistle plant, pixel art, transparent background, attack cycle launching magic thorn projectile, brief recoil, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "NORMAL",
+      "side": "zombie",
+      "actions": [
+        {
+          "action": "walk",
+          "frames": 8,
+          "prompt": "cartoon normal zombie, pixel art, transparent background, side view walk cycle, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "cartoon normal zombie, pixel art, transparent background, side view attack cycle with arm swing and bite motion, same character identity across frames"
+        },
+        {
+          "action": "die",
+          "frames": 8,
+          "prompt": "cartoon normal zombie, pixel art, transparent background, side view death cycle collapsing to ground with fading life, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "CONE",
+      "side": "zombie",
+      "actions": [
+        {
+          "action": "walk",
+          "frames": 8,
+          "prompt": "cartoon conehead zombie, pixel art, transparent background, side view walk cycle, orange traffic cone on head, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "cartoon conehead zombie, pixel art, transparent background, side view attack cycle with arm swing and bite motion, same character identity across frames"
+        },
+        {
+          "action": "die",
+          "frames": 8,
+          "prompt": "cartoon conehead zombie, pixel art, transparent background, side view death cycle collapsing to ground, traffic cone tilting/falling off, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "BUCKET",
+      "side": "zombie",
+      "actions": [
+        {
+          "action": "walk",
+          "frames": 8,
+          "prompt": "cartoon buckethead zombie, pixel art, transparent background, side view walk cycle, metal bucket helmet with highlights, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "cartoon buckethead zombie, pixel art, transparent background, side view attack cycle with bite animation and arm swing, same character identity across frames"
+        },
+        {
+          "action": "die",
+          "frames": 8,
+          "prompt": "cartoon buckethead zombie, pixel art, transparent background, side view death cycle collapsing to ground, bucket helmet dropping/tilting, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "BOSS",
+      "side": "zombie",
+      "actions": [
+        {
+          "action": "walk",
+          "frames": 8,
+          "prompt": "intimidating boss zombie with suit and dark hair, pixel art, transparent background, side view heavy walk cycle, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "intimidating boss zombie with suit and dark hair, pixel art, transparent background, side view powerful attack cycle, same character identity across frames"
+        },
+        {
+          "action": "die",
+          "frames": 8,
+          "prompt": "intimidating boss zombie with suit and dark hair, pixel art, transparent background, side view death cycle with heavy collapse and dramatic finish, same character identity across frames"
+        }
+      ]
+    },
+    {
+      "name": "GIANT",
+      "side": "zombie",
+      "actions": [
+        {
+          "action": "walk",
+          "frames": 8,
+          "prompt": "giant zombie holding a large club, pixel art, transparent background, side view heavy walk cycle, same character identity across frames"
+        },
+        {
+          "action": "attack",
+          "frames": 8,
+          "prompt": "giant zombie holding a large club, pixel art, transparent background, side view smash attack cycle, strong anticipation and impact pose, same character identity across frames"
+        },
+        {
+          "action": "die",
+          "frames": 8,
+          "prompt": "giant zombie holding a large club, pixel art, transparent background, side view death cycle with heavy fall and club drop, same character identity across frames"
+        }
+      ]
+    }
+  ],
+  "projectiles": [
+    {
+      "name": "pea",
+      "frames": 4,
+      "prompt": "small green pea projectile, pixel art, transparent background, 4-frame spin cycle, clean outline"
+    },
+    {
+      "name": "ice_pea",
+      "frames": 4,
+      "prompt": "small icy blue pea projectile, pixel art, transparent background, 4-frame spin cycle, frosty trail hint"
+    },
+    {
+      "name": "thorn",
+      "frames": 4,
+      "prompt": "small purple magic thorn projectile, pixel art, transparent background, 4-frame spin cycle, arcane glow"
+    }
+  ]
+}

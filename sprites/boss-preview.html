@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首领步态 · 动画预览</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#111b19;color:#e7f0e8;font:15px system-ui,sans-serif;padding:24px}main{max-width:1050px;margin:auto}h1{font-size:28px;margin:0 0 8px}p{color:#adbbb1;line-height:1.6}a{color:#b9df9b}.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:16px;background:#20312a;border-radius:12px;margin:20px 0}button,select{font:inherit;border:1px solid #647766;background:#304b37;color:white;border-radius:6px;padding:8px 12px;cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #bce996;outline-offset:3px}.toolbar label{display:flex;align-items:center;gap:8px}.toolbar input[type=range]{width:150px}.stage{position:relative;min-height:300px;display:flex;align-items:center;justify-content:center;background:repeating-conic-gradient(#283d30 0 25%,#23362a 0 50%) 0/24px 24px;border:1px solid #526550;border-radius:12px;overflow:hidden}canvas{image-rendering:pixelated;display:block}.stage canvas{width:min(72vw,384px);height:auto}.status{position:absolute;top:12px;left:14px;background:#111c18db;padding:6px 10px;border-radius:6px;font-variant-numeric:tabular-nums}.filmstrip{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin-top:20px}.frame{padding:8px 2px;background:#20312a;border:2px solid transparent;display:flex;align-items:center;flex-direction:column;gap:6px}.frame canvas{width:100%;height:auto}.frame[aria-pressed=true]{border-color:#c8f49f;background:#344a32}.hint{font-size:13px}.error{color:#ffb2a7}@media(max-width:650px){body{padding:16px}.filmstrip{grid-template-columns:repeat(4,minmax(0,1fr))}.stage{min-height:250px}}
+</style>
+<main>
+<h1>首领僵尸 · 行走预览</h1>
+<p>ImageGen 新生成的八帧候选，重点观察髋部连接、前后腿换步和鞋跟轮廓。当前仅用于预览，可切换骨架拼接版对比。</p>
+<div class="toolbar">
+ <button id="play" aria-pressed="true">暂停</button>
+ <button id="prev" aria-label="上一帧">← 上一帧</button>
+ <button id="next" aria-label="下一帧">下一帧 →</button>
+ <label>版本<select id="version"><option value="v14" selected>新：ImageGen 八帧候选</option><option value="v11">对比：骨架拼接版</option><option value="v10">对比：原腰胯</option><option value="v9">对比：原鞋跟</option><option value="v8">对比：共用地面线</option><option value="v7">对比：8 帧小步</option><option value="v4">旧：抬腿版本</option></select></label>
+ <label>播放速度<select id="speed"><option value="0.5">0.5× 慢放</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label>
+ <label>逐帧<input id="scrub" type="range" min="0" max="7" value="0"></label>
+ <label><input id="move" type="checkbox">向左移动</label>
+</div>
+<div class="stage" id="stage"><span class="status" id="status">加载中…</span><canvas id="preview" width="96" height="96" role="img" aria-label="首领行走动画"></canvas></div>
+<div class="filmstrip" id="frames" role="group" aria-label="八个关键姿势"></div>
+<p class="hint">默认 1×。新版每周期 0.5 格，约 2.5 秒一轮；旧版约 3.25 秒一轮。ImageGen 候选为八帧，骨架版为 24 帧；下方展示八个关键姿势。点击缩略图可停在对应帧，方向键可逐帧检查。放大采用像素显示。</p>
+<p><a href="index.html">查看全部植物与僵尸动画 →</a></p>
+</main>
+<script>
+const versions={v14:{file:'boss-v14-preview.png',count:8,stride:.5},v11:{file:'boss-v11.png',count:24,stride:.5},v10:{file:'boss-v10.png',count:24,stride:.5},v9:{file:'boss-v9.png',count:24,stride:.5},v8:{file:'boss-v8.png',count:24,stride:.5},v7:{file:'boss-v7.png',count:8,stride:.5},v4:{file:'boss.png',count:8,stride:.65}};
+const image=new Image(),canvas=document.getElementById('preview'),ctx=canvas.getContext('2d'),status=document.getElementById('status'),play=document.getElementById('play'),scrub=document.getElementById('scrub'),stage=document.getElementById('stage'),move=document.getElementById('move');
+let running=true,phase=0,last=null,ready=false,travelled=0,version=versions.v14;
+const buttons=[];
+function draw(context,frame){context.imageSmoothingEnabled=false;context.clearRect(0,0,96,96);context.drawImage(image,frame%8*96,Math.floor(frame/8)*96,96,96,0,0,96,96)}
+function display(){if(!ready)return;const f=Math.floor(phase);draw(ctx,f);status.textContent='行走 · '+(f+1)+' / '+version.count;scrub.value=f;buttons.forEach((b,i)=>b.button.setAttribute('aria-pressed',String(Math.floor(f/(version.count/8))===i)));const travel=stage.clientWidth+canvas.clientWidth;canvas.style.transform=move.checked?'translateX('+(travel/2-(travelled%travel))+'px)':'none'}
+function pause(){running=false;play.textContent='播放';play.setAttribute('aria-pressed','false')}
+function select(frame){pause();phase=(frame+version.count)%version.count;display()}
+for(let i=0;i<8;i++){const button=document.createElement('button'),c=document.createElement('canvas');c.width=c.height=96;button.className='frame';button.setAttribute('aria-label','关键姿势 '+(i+1));button.append(c,document.createTextNode('姿势 '+(i+1)));button.onclick=()=>select(i*version.count/8);document.getElementById('frames').append(button);buttons.push({button,canvas:c})}
+play.onclick=()=>{running=!running;play.textContent=running?'暂停':'播放';play.setAttribute('aria-pressed',String(running))};
+document.getElementById('prev').onclick=()=>select(Math.floor(phase)-1);
+document.getElementById('next').onclick=()=>select(Math.floor(phase)+1);
+scrub.oninput=()=>select(Number(scrub.value));
+document.addEventListener('keydown',e=>{if(e.target.matches('input,select'))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();select(Math.floor(phase)+(e.key==='ArrowRight'?1:-1))}});
+image.onload=()=>{ready=true;for(let i=0;i<8;i++)draw(buttons[i].canvas.getContext('2d'),i*version.count/8);display()};
+image.onerror=()=>{status.textContent='素材加载失败，请刷新页面';status.classList.add('error')};
+function loadVersion(){ready=false;phase=0;travelled=0;last=null;version=versions[document.getElementById('version').value];scrub.max=version.count-1;image.src='zombies/'+version.file+'?v=preview-v14';}
+document.getElementById('version').onchange=loadVersion;loadVersion();
+function render(now){const delta=last===null?0:Math.min(100,now-last);last=now;if(ready){if(running&&!document.hidden){const seconds=delta/1000*Number(document.getElementById('speed').value);phase=(phase+seconds*(.2/version.stride*version.count))%version.count;travelled+=seconds*.2/1.5*canvas.clientWidth;}display()}requestAnimationFrame(render)}
+requestAnimationFrame(render);
+</script></html>
